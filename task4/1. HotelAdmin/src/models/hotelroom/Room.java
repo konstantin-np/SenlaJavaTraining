@@ -1,4 +1,4 @@
-import java.util.Comparator;
+package models.hotelroom;
 
 public class Room {
     
@@ -7,7 +7,7 @@ public class Room {
     private int starsCount;
     private double price;
     private RoomStatus status;
-    //private List<Client> roomers;
+    
     
     public Room(int roomId, int capacity, int starsCount, double price) {
 		this.roomId = roomId;
@@ -15,7 +15,6 @@ public class Room {
 		this.starsCount = starsCount;
 		this.price = price;
 		this.status = RoomStatus.free;
-		//this.roomers = new ArrayList<Client>(); 
 	}
     
     public int getRoomId() {
@@ -54,21 +53,6 @@ public class Room {
 		this.status = status;
 	}
 
-	public static Comparator<Room> StarsCountComparator = new Comparator<Room>() {
-		 
-        @Override
-        public int compare(Room r1, Room r2) {
-            return (int) (r1.getStarsCount() - r2.getStarsCount());
-        }
-    };
-    
-    public static Comparator<Room> PriceComparator = new Comparator<Room>() {
-		 
-        @Override
-        public int compare(Room r1, Room r2) {
-            return (int) (r2.getPrice() - r1.getPrice());
-        }
-    };
     
     public String toString() {
     	StringBuilder sb = new StringBuilder();
@@ -80,27 +64,5 @@ public class Room {
     	return sb.toString();
     }
 	
-    /*public List<Client> getRoomers() {
-		return roomers;
-	}
-
-	public void setRoomers(List<Client> roomers) {
-		this.roomers = roomers;
-	}
-    
-	public void addRoomer(Client roomer)
-	{
-		if (this.roomers.size() + 1 <= this.capacity) {
-			this.roomers.add(roomer);
-		} else {
-			System.out.println("Room is full!");
-		}
-		
-	}
-    
-	public void removeRoomer(Client roomer)
-	{
-		this.roomers.remove(roomer);
-	}*/
-	
 }
+

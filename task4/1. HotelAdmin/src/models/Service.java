@@ -1,5 +1,6 @@
+package models;
 
-public class Service implements Comparable<Service>{
+public class Service {
 	
 	private String name;
 	private double price;
@@ -23,11 +24,6 @@ public class Service implements Comparable<Service>{
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-	
-	@Override
-	public int compareTo(Service otherServ) {
-		return Double.compare(this.price, otherServ.getPrice());
 	}
 	
 	public String toString() {

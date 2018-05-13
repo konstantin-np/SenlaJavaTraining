@@ -1,11 +1,12 @@
+package models;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import models.hotelroom.*;
 
-public class Order implements Comparable<Order> {
+public class Order{
 	
 	private List<Client> clients;
 	private Room room;
@@ -91,35 +92,6 @@ public class Order implements Comparable<Order> {
 		this.services.remove(service);
 	}
 	
-	/* returns difference between dateEnd and dateStart in days */ 
-	public long calcStayingDays() {
-		long stayingDays = dateEnd.getTime() - dateStart.getTime();
-	    return TimeUnit.DAYS.convert(stayingDays, TimeUnit.MILLISECONDS);
-	}
-	
-	public double calcStayingPrice() {
-		double sum = this.calcStayingDays() * this.room.getPrice();
-		return sum;
-	}
-	
-	public double calcServicesPrice()
-	{
-		double sum = 0;
-		for (Service s : this.services) {
-			sum += s.getPrice();
-		}
-		return sum;
-	}
-	
-	public double calcSumPrice() {
-		return this.calcStayingPrice() + this.calcServicesPrice();
-	}
-	
-	@Override
-	public int compareTo(Order otherOrder) {
-		 return this.getDateEnd().compareTo(otherOrder.getDateEnd());
-	}
-	
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -131,7 +103,13 @@ public class Order implements Comparable<Order> {
 		}
 		sb.append(", " + startEndDateFormat.format(this.dateStart));
 		sb.append(" - " + startEndDateFormat.format(this.dateEnd));
-		sb.append(", " + this.calcSumPrice());
+		if (this.services.size() > 0) {
+			sb.append(" Services:");
+			for (int i = 0; i < this.services.size(); i++) {
+				sb.append(" " + this.services.get(i).getName());
+			}
+		}
+		//sb.append(", " + this.calcSumPrice());
 		return sb.toString();
 	}
 }
