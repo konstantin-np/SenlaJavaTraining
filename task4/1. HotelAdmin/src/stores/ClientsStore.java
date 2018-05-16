@@ -21,29 +21,5 @@ public class ClientsStore implements IClientsStore{
 		this.clients = clients;
 	}
 
-	public void addClient(Client client) {
-		if (client != null) {
-			this.clients.add(client);
-		}
-	}
-
-	public void removeClient(Client client) {
-		if (client != null) {
-			this.clients.remove(client);
-		}
-	}
-
-	public Client getClient(int idInList) {
-		if (this.clients.size() > idInList) {
-			return this.clients.get(idInList);
-		} else {
-			return null;
-		}
-	}
-
-	public List<Client> getAllClients() {
-		return this.clients;
-	};
-	
 	
 }

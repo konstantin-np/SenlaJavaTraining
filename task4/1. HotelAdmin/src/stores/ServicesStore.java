@@ -21,20 +21,6 @@ public class ServicesStore implements IServicesStore {
 		this.services = services;
 	}
 
-	public void addService(Service service) {
-		this.services.add(service);
-	}
-
-	public void removeService(Service service) {
-		this.services.remove(service);
-	}
-
-	public Service getService(int idInList) {
-		return this.services.get(idInList);
-	}
-
-	public List<Service> getAllServices() {
-		return this.services;
-	}
+	
 	
 }

@@ -21,22 +21,4 @@ public class OrdersStore implements IOrdersStore {
 		this.orders = orders;
 	}
 	
-	public void addOrder(Order order) {
-		this.orders.add(order);
-	}
-
-	public void removeOrder(Order order) {
-		this.orders.remove(order);
-	}
-
-	public Order getOrder(int idInList) {
-		return this.orders.get(idInList);
-	}
-
-	public List<Order> getAllOrders() {
-		return this.orders;
-	}
-
-	
-	
 }
