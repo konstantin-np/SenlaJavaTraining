@@ -15,28 +15,41 @@ import models.Service;
 import stores.OrdersStore;
 
 public class OrdersService implements IOrdersService {
-
-	public void addOrder(OrdersStore orders, Order order) {
-		orders.getOrders().add(order);
-	}
-
-	public void removeOrder(OrdersStore orders, Order order) {
-		orders.getOrders().add(order);
-	}
-
-	public Order getOrder(OrdersStore orders, int idInList) {
-		return orders.getOrders().get(idInList);
-	}
-
-	public List<Order> getAllOrders(OrdersStore orders) {
-		return orders.getOrders();
+	
+	OrdersStore orders;
+	
+	public OrdersService() {
+		this.orders = new OrdersStore();
 	}
 	
+	public OrdersStore getOrders() {
+		return orders;
+	}
+
+	public void setOrders(OrdersStore orders) {
+		this.orders = orders;
+	}
+
+	public void addOrder(Order order) {
+		this.orders.getOrders().add(order);
+	}
+
+	public void removeOrder(Order order) {
+		this.orders.getOrders().add(order);
+	}
+
+	public Order getOrder(int idInList) {
+		return this.orders.getOrders().get(idInList);
+	}
+
+	public List<Order> getAllOrders() {
+		return this.orders.getOrders();
+	}
 	
-	public List<String> getClientsAndRooms(OrdersStore orders) {
+	public List<String> getClientsAndRooms() {
 		List<String> clientsAndRooms = new ArrayList<String>();
 		DateFormat clientMoveDateFormat = new SimpleDateFormat("MM/dd/yy");
-		for (Order o : orders.getOrders()) {
+		for (Order o : this.orders.getOrders()) {
 			List<Client> clients = o.getClients();
 			Collections.sort(clients, new ClientsNameComparator());
 			for (Client c : clients) {
@@ -80,9 +93,9 @@ public class OrdersService implements IOrdersService {
 	}
 	
 	/* returns list of 3 previous orders for room ¹roomId */ 
-	public List<Order> getPreviousRoomers(OrdersStore orders, int roomId) {
+	public List<Order> getPreviousRoomers(int roomId) {
 		List<Order> prevRoomers= new ArrayList<Order>();
-		for (Order o : orders.getOrders()) {
+		for (Order o : this.orders.getOrders()) {
 			if (o.getRoom().getRoomId() == roomId) {
 				prevRoomers.add(o);
 			}
@@ -94,9 +107,9 @@ public class OrdersService implements IOrdersService {
 	}
 	
 	/* returns list of services for client sorted by price*/
-	public List<Service> getClientServices(OrdersStore orders, Client client) {
+	public List<Service> getClientServices(Client client) {
 		List<Service> clientServ = new ArrayList<Service>();
-		for (Order o : orders.getOrders()) {
+		for (Order o : this.orders.getOrders()) {
 			if (o.getClients().contains(client)) {
 				clientServ.addAll(o.getServices());
 			}

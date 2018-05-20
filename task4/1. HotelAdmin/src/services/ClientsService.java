@@ -7,31 +7,46 @@ import stores.ClientsStore;
 
 public class ClientsService implements IClientsService {
 	
-	public int getClientsCount(ClientsStore clients) {
-		return clients.getClients().size();
+	ClientsStore clients;
+	
+	public ClientsService() {
+		super();
+		this.clients = new ClientsStore();
+	}
+
+	public ClientsStore getClients() {
+		return clients;
+	}
+
+	public void setClients(ClientsStore clients) {
+		this.clients = clients;
+	}
+
+	public int getClientsCount() {
+		return this.clients.getClients().size();
 	}
 	
-	public void addClient(ClientsStore clients, Client client) {
+	public void addClient(Client client) {
 		if (client != null) {
-			clients.getClients().add(client);
+			this.clients.getClients().add(client);
 		}
 	}
 
-	public void removeClient(ClientsStore clients, Client client) {
+	public void removeClient(Client client) {
 		if (client != null) {
-			clients.getClients().remove(client);
+			this.clients.getClients().remove(client);
 		}
 	}
 
-	public Client getClient(ClientsStore clients, int idInList) {
-		if (clients.getClients().size() > idInList) {
-			return clients.getClients().get(idInList);
+	public Client getClient(int idInList) {
+		if (this.clients.getClients().size() > idInList) {
+			return this.clients.getClients().get(idInList);
 		} else {
 			return null;
 		}
 	}
 
-	public List<Client> getAllClients(ClientsStore clients) {
-		return clients.getClients();
+	public List<Client> getAllClients() {
+		return this.clients.getClients();
 	};
 }

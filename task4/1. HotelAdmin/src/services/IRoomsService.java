@@ -9,15 +9,15 @@ import stores.RoomsStore;
 
 public interface IRoomsService {
 	
-	public void addRoom(RoomsStore rooms, Room room);
-	public void removeRoom(RoomsStore rooms, Room room);
-	public Room getRoomById(RoomsStore rooms, int roomId);
-	public Room getRoomByIdInList(RoomsStore rooms, int idInList);
-	public List<Room> getAllRooms(RoomsStore rooms);
+	public void addRoom(Room room);
+	public void removeRoom(Room room);
+	public Room getRoomById(int roomId);
+	public Room getRoomByIdInList(int idInList);
+	public List<Room> getAllRooms();
 	
-	public List<Room> getRoomsListSortedByPrice(RoomsStore rooms);
-	public List<Room> getFreeRooms(RoomsStore rooms);
-	public int getFreeRoomsCount(RoomsStore rooms);
-	public List<Room> getRoomsFreeAtDate(RoomsStore rooms, OrdersStore orders, Date d);
+	public List<Room> getRoomsListSortedByPrice();
+	public List<Room> getFreeRooms();
+	public int getFreeRoomsCount();
+	public List<Room> getRoomsFreeAtDate(OrdersStore orders, Date d);
 
 }

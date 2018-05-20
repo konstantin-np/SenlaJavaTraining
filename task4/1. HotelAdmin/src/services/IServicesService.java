@@ -7,9 +7,9 @@ import stores.ServicesStore;
 
 public interface IServicesService {
 	
-	public void addService(ServicesStore services, Service service);
-	public void removeService(ServicesStore services, Service service);
-	public Service getService(ServicesStore services, int idInList);
-	public List<Service> getAllServices(ServicesStore services);
+	public void addService(Service service);
+	public void removeService(Service service);
+	public Service getService(int idInList);
+	public List<Service> getAllServices();
 	
 }

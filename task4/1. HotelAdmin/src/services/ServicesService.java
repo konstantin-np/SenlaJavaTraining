@@ -10,20 +10,34 @@ import stores.ServicesStore;
 
 public class ServicesService implements IServicesService {
 	
-	public void addService(ServicesStore services, Service service) {
-		services.getServices().add(service);
+	ServicesStore services;
+	
+	public ServicesService() {
+		this.services = new ServicesStore();
+	}
+	
+	public ServicesStore getServices() {
+		return services;
 	}
 
-	public void removeService(ServicesStore services, Service service) {
-		services.getServices().remove(service);
+	public void setServices(ServicesStore services) {
+		this.services = services;
 	}
 
-	public Service getService(ServicesStore services, int idInList) {
-		return services.getServices().get(idInList);
+	public void addService(Service service) {
+		this.services.getServices().add(service);
 	}
 
-	public List<Service> getAllServices(ServicesStore services) {
-		return services.getServices();
+	public void removeService(Service service) {
+		this.services.getServices().remove(service);
+	}
+
+	public Service getService(int idInList) {
+		return this.services.getServices().get(idInList);
+	}
+
+	public List<Service> getAllServices() {
+		return this.services.getServices();
 	}
 	
 }

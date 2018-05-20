@@ -16,40 +16,54 @@ import stores.OrdersStore;
 import stores.RoomsStore;
 
 public class RoomsService implements IRoomsService {
-
-	public void addRoom(RoomsStore rooms, Room room) {
-		rooms.getRooms().add(room);
+	
+	RoomsStore rooms;
+	
+	public RoomsService() {
+		this.rooms = new RoomsStore();
+	}
+	
+	public RoomsStore getRooms() {
+		return rooms;
 	}
 
-	public void removeRoom(RoomsStore rooms, Room room) {
-		rooms.getRooms().remove(room);
+	public void setRooms(RoomsStore rooms) {
+		this.rooms = rooms;
 	}
 
-	public Room getRoomById(RoomsStore rooms, int roomId) {
+	public void addRoom(Room room) {
+		this.rooms.getRooms().add(room);
+	}
+
+	public void removeRoom(Room room) {
+		this.rooms.getRooms().remove(room);
+	}
+
+	public Room getRoomById(int roomId) {
 		for (int i = 0; i < rooms.getRooms().size(); i++) {
-			if (rooms.getRooms().get(i).getRoomId() == roomId) {
-				return rooms.getRooms().get(i);
+			if (this.rooms.getRooms().get(i).getRoomId() == roomId) {
+				return this.rooms.getRooms().get(i);
 			}
 		}
 		return null;
 	}
 
-	public Room getRoomByIdInList(RoomsStore rooms, int idInList) {
-		return rooms.getRooms().get(idInList);
+	public Room getRoomByIdInList(int idInList) {
+		return this.rooms.getRooms().get(idInList);
 	}
 
-	public List<Room> getAllRooms(RoomsStore rooms) {
+	public List<Room> getAllRooms() {
 		return rooms.getRooms();
 	}
 	
-	public List<Room> getRoomsListSortedByPrice(RoomsStore rooms) {
-		List<Room> roomsList = rooms.getRooms();
+	public List<Room> getRoomsListSortedByPrice() {
+		List<Room> roomsList = this.rooms.getRooms();
 		Collections.sort(roomsList, new RoomsPriceComparator());
 		return roomsList;
 	}
 
-	public List<Room> getFreeRooms(RoomsStore rooms) {
-		List<Room> roomsList = rooms.getRooms();
+	public List<Room> getFreeRooms() {
+		List<Room> roomsList = this.rooms.getRooms();
 		List<Room> freeRooms = new ArrayList<Room>();
 		for (int i = 0; i < roomsList.size(); i++) {
 			if (roomsList.get(i).getStatus() == RoomStatus.free)
@@ -59,9 +73,9 @@ public class RoomsService implements IRoomsService {
 		return freeRooms;
 	}
 
-	public int getFreeRoomsCount(RoomsStore rooms) {
+	public int getFreeRoomsCount() {
 		int count = 0;
-		for (Room r : rooms.getRooms()) {
+		for (Room r : this.rooms.getRooms()) {
 			if (r.getStatus() == RoomStatus.free) {
 				count++;
 			}
@@ -70,8 +84,8 @@ public class RoomsService implements IRoomsService {
 	}
 
 	/* returns list of rooms that will be free at Date d */
-	public List<Room> getRoomsFreeAtDate(RoomsStore rooms, OrdersStore orders, Date d) {
-		List<Room> freeRooms = this.getFreeRooms(rooms); //add rooms free at the moment
+	public List<Room> getRoomsFreeAtDate(OrdersStore orders, Date d) {
+		List<Room> freeRooms = this.getFreeRooms(); //add rooms free at the moment
 		for (Order o : orders.getOrders()) { 
 			if (o.getDateEnd().before(d)) { //if order expires before date d
 				freeRooms.add(o.getRoom()); //add room from this order to list
@@ -80,10 +94,10 @@ public class RoomsService implements IRoomsService {
 		return freeRooms;
 	}
 	
-	public void writeRoomsDataToFile(RoomsStore rooms, String filepath) {
+	public void writeRoomsDataToFile(String filepath) {
 		TextFileWorker tfw = new TextFileWorker(filepath);
 		try {
-			List<Room> roomsList = rooms.getRooms();
+			List<Room> roomsList = this.rooms.getRooms();
 			String roomsData[] = new String[roomsList.size()];
 			for (int i = 0; i < roomsList.size(); i++) {
 				//roomsData[i] = roomsList.get(i).toString();
